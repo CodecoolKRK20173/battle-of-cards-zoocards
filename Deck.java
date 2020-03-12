@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Deck{
-    List<Card> deck = new ArrayList<>();
+
+    List<Card> deck = new ArrayList<Card>();
 
     Deck(String fileName) throws FileNotFoundException {
  
@@ -26,7 +27,6 @@ public class Deck{
             int strenght = Integer.parseInt(cardContent[3]);
             int lifeExpectancy = Integer.parseInt(cardContent[4]);
 
-
             Card card = new Card();
             
             card.setName(cardContent[0]);
@@ -36,13 +36,13 @@ public class Deck{
             card.setLifeExpectancy(lifeExpectancy);
 
             deck.add(card);
-    
         }
 
         sc.close(); // closes the scanner
 
     }
 
+    
 
 }
 

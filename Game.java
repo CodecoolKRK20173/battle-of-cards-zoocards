@@ -7,7 +7,7 @@ public class Game {
     Game(String fileName) throws FileNotFoundException {
 
         this.deck = new Deck(fileName);
-    
+        
 
     }
 

@@ -6,9 +6,10 @@ public class BattleOfCards {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-       Game game = new Game("animals.csv");
+        String fileName = "animals.csv";
+        Game game = new Game(fileName);
 
-       System.out.println(game.deck.deck.get(4).getSpeed());
-        
+        System.out.println(game.deck.deck.get(4).getSpeed());
+
     }
 }
