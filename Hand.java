@@ -22,10 +22,11 @@ public class Hand {
         return cardToGive;
     }
 
-    int giveNoOfCards(){
-        
-        return hand.size();
+    boolean isLose(){
+
+        return hand.isEmpty();
     }
+        
 
 
 }
