@@ -3,9 +3,10 @@ import java.util.Scanner;
 public class Player {
     
     Hand hand = new Hand();
+    int id;
 
-    Player(){
-
+    Player(int id){
+        this.id = id;
     }
 
     void addCard(Card card){

@@ -42,6 +42,10 @@ public class Deck{
 
     }
 
+    public int getNumOfCards(){
+        return deck.size();
+    }
+
     
 
 }
