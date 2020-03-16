@@ -16,14 +16,19 @@ class View {
     }
 
     public static void printCard(Card card){
+        String str = " "; 
 
-        System.out.println("Animal: " + card.getName());
-        System.out.println("Speed: " + card.getSpeed());
-        System.out.println("Height: " + card.getHeight());
-        System.out.println("Strenght: " + card.getStrenght());
-        System.out.println("Life Expectancy: " + card.getLifeExpectancy());
+        System.out.println("----------------------");
+        System.out.println("|Animal: " + card.getName() + str.repeat(13 - card.getName().length()) + "|");
+        System.out.println("----------------------");
+        System.out.println("|Speed: " + card.getSpeed()+ str.repeat(14 - countDigit(card.getSpeed())) + "|");
+        System.out.println("|Height: " + card.getHeight()+ str.repeat(13 - countDigit(card.getHeight())) + "|");
+        System.out.println("|Strenght: " + card.getStrenght()+ str.repeat(11 - countDigit(card.getStrenght())) + "|");
+        System.out.println("|Life Expectancy: " + card.getLifeExpectancy()+ str.repeat(4 - countDigit(card.getLifeExpectancy())) + "|");
+        System.out.println("----------------------");
     }
 
+ 
     static int decideWhichFeature(){
 
         View.print("Please select which feature to fight with...");
@@ -44,4 +49,15 @@ class View {
 
         return noOfPlayersChoice;
     }
+
+
+    static int countDigit(long n) 
+    { 
+        int count = 0; 
+        while (n != 0) { 
+            n = n / 10; 
+            ++count; 
+        } 
+        return count; 
+    } 
 }
