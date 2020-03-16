@@ -23,22 +23,17 @@ public class Game {
         }
         // dealing cards
         dealCards();
-        
+        boolean game_status = true;
         // game
-        while (true){
-
+        while (game_status){
             for (int i = 0; i < players.size(); i++){
-                for (int x = 0; x<30; x++){
-                    System.out.println("\n");
-                }
                 round(i , players);
                 if (checkGameStatus()){
+                    game_status = false;
                     break;
                 } 
             }
         }
-
-  
     }
 
     public void dealCards() {
@@ -61,9 +56,7 @@ public class Game {
         View.print("--Player " + playerToDecide.getPlayerId() + "--");
         View.print("");
         View.printCard(playerToDecide.showTopCard());
-        View.print("");
-
-        //View.printCard(player2.showTopCard());
+        System.out.println();
         View.print("");
 
         // calculating the winning card
@@ -83,7 +76,7 @@ public class Game {
                 while(change > 0){
                     change = 0;
                     for(int i=0; i<cardsOnTable.size()-1; i++){
-                        if(dealer.compare(cardsOnTable.get(i).getSpeed(), cardsOnTable.get(i+1).getSpeed()) > 0){
+                        if(dealer.compare(cardsOnTable.get(i).getSpeed(), cardsOnTable.get(i+1).getSpeed()) < 0){
                         temp = cardsOnTable.get(i+1);
                         cardsOnTable.set(i+1, cardsOnTable.get(i));
                         cardsOnTable.set(i, temp);
@@ -101,7 +94,7 @@ public class Game {
                 while(change > 0){
                     change = 0;
                     for(int i=0; i<cardsOnTable.size()-1; i++){
-                        if(dealer.compare(cardsOnTable.get(i).getHeight(), cardsOnTable.get(i+1).getHeight()) > 0){
+                        if(dealer.compare(cardsOnTable.get(i).getHeight(), cardsOnTable.get(i+1).getHeight()) < 0){
                         temp = cardsOnTable.get(i+1);
                         cardsOnTable.set(i+1, cardsOnTable.get(i));
                         cardsOnTable.set(i, temp);
@@ -119,7 +112,7 @@ public class Game {
                 while(change > 0){
                     change = 0;
                     for(int i=0; i<cardsOnTable.size()-1; i++){
-                        if(dealer.compare(cardsOnTable.get(i).getStrenght(), cardsOnTable.get(i+1).getStrenght()) > 0){
+                        if(dealer.compare(cardsOnTable.get(i).getStrenght(), cardsOnTable.get(i+1).getStrenght()) < 0){
                         temp = cardsOnTable.get(i+1);
                         cardsOnTable.set(i+1, cardsOnTable.get(i));
                         cardsOnTable.set(i, temp);
@@ -137,7 +130,7 @@ public class Game {
                 while(change > 0){
                     change = 0;
                     for(int i=0; i<cardsOnTable.size()-1; i++){
-                        if(dealer.compare(cardsOnTable.get(i).getLifeExpectancy(), cardsOnTable.get(i+1).getLifeExpectancy()) > 0){
+                        if(dealer.compare(cardsOnTable.get(i).getLifeExpectancy(), cardsOnTable.get(i+1).getLifeExpectancy()) < 0){
                         temp = cardsOnTable.get(i+1);
                         cardsOnTable.set(i+1, cardsOnTable.get(i));
                         cardsOnTable.set(i, temp);
@@ -148,7 +141,7 @@ public class Game {
                 break;
             }
             else{
-                View.print("No such choice!");
+                View.print("No such choice! Try again!");
             }
         }
 
@@ -158,37 +151,66 @@ public class Game {
         // checking whose card is first in sorted cardsOnTable arraylist
         int winnerId = cardsOnTable.get(0).getWooseCardIsThisNow();
 
-        // finding the winner
+        // 'czyszczenie' ekranu
+        for (int x = 0; x<20; x++){
+            System.out.println("\n");
+        }
+
         for (Player player : players){
             if (player.getPlayerId() == winnerId){
+                // 'czyszczenie' ekranu
                 View.print("Player " + player.getPlayerId() + " won the round!");
+
+                for (int x = 0; x<2; x++){
+                    System.out.print("\n");
+                }
+
                 // adding cards to winner
                 for (Card card : cardsOnTable){
                     player.addCard(card);
-                    cardsOnTable.remove(card);
                 }
+                cardsOnTable.clear();
             }
             else {
                 ;
             }
         }
-
+        for (Player player1 : players){
+            if (player1.isLose()){
+                View.print("\nOops! Player " + player1.getPlayerId() + " has lost xD\n");
+            }
+            else{
+                ;
+            }
+        }
         return tempCardStack;
     }
 
     public boolean checkGameStatus() {
+        int i = 0;
+        ArrayList<Integer> indexesOfPlayersToBeRemoved = new ArrayList<>();
         for (Player player : players) {
             if (player.isLose()){
-                View.print("Congratulations! Player " + player.getPlayerId() + " has lost");
-                players.remove(player);
-                if (players.size() == 1){
-                    return true;
-                }
+                indexesOfPlayersToBeRemoved.add(i);
             }
             else {
                 ;
             }
+            i++;
         }
-        return false;
+        // takie coś zeby wywalić graczy którzy zostali bez kart, a podwójna pętla bo mozna robic tylko jedno remove na petle
+        for (int j = 0; j<indexesOfPlayersToBeRemoved.size(); j++){
+            for (int PlayerIndex : indexesOfPlayersToBeRemoved){
+                players.remove(PlayerIndex);
+                break;
+            }
+        }
+        if (players.size() == 1){
+            System.out.println("Congratulations Player " + players.get(0).getPlayerId() + "! You have won the game!");
+            return true;
+        }
+        else {
+            return false; 
+        }
     }
 }

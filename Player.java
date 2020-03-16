@@ -12,7 +12,7 @@ public class Player {
 
     void addCard(Card card){
 
-        this.hand.addCard(card);
+        this.hand.addCard(card, this.id);
     }
 
     Card layCardOnTable(){

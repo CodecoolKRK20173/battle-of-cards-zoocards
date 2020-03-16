@@ -18,10 +18,10 @@ class View {
     public static void printCard(Card card){
 
         System.out.println("Animal: " + card.getName());
-        System.out.println("Speed: " + card.getSpeed());
-        System.out.println("Height: " + card.getHeight());
-        System.out.println("Strenght: " + card.getStrenght());
-        System.out.println("Life Expectancy: " + card.getLifeExpectancy());
+        System.out.println("1. Speed: " + card.getSpeed());
+        System.out.println("2. Height: " + card.getHeight());
+        System.out.println("3. Strenght: " + card.getStrenght());
+        System.out.println("4. Life Expectancy: " + card.getLifeExpectancy());
     }
 
     static int decideWhichFeature(){
@@ -39,7 +39,8 @@ class View {
 
     static int askForNumberOfPlayers(){
         
-        View.print("Enter number of players (2-5): ");        
+        View.print("Enter number of players (2-5): ");   
+             
         int noOfPlayersChoice = scan.nextInt();
 
         return noOfPlayersChoice;
