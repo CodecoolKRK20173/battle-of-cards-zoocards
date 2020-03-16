@@ -1,21 +1,18 @@
-import java.net.Socket;
 import java.util.Scanner;
 
-public class View {
+class View {
+
+    static Scanner scan = new Scanner(System.in);
+    static int featureChoice;
+    static int noOfPlayersChoice;
+
     
     public static void print(String string){
         System.out.println(string);
     }
 
-    static int askForNumberOfPlayers(){
-        
-        Scanner scan =  new Scanner(System.in);
-
-        View.print("Enter number of players (2-5): ");        
-        int choice = scan.nextInt();
-        scan.close();
-
-        return choice;
+    public static void print(int intId){
+        System.out.println(intId);
     }
 
     public static void printCard(Card card){
@@ -26,5 +23,25 @@ public class View {
         System.out.println("Strenght: " + card.getStrenght());
         System.out.println("Life Expectancy: " + card.getLifeExpectancy());
     }
-    
+
+    static int decideWhichFeature(){
+
+        View.print("Please select which feature to fight with...");
+        View.print("1. Speed \n2. Height \n3. Strenght \n4. Life Expectancy");
+
+        if (scan.hasNext()){
+            
+            featureChoice = scan.nextInt();
+            scan.nextLine();
+        }
+        return featureChoice;
+    }
+
+    static int askForNumberOfPlayers(){
+        
+        View.print("Enter number of players (2-5): ");        
+        int noOfPlayersChoice = scan.nextInt();
+
+        return noOfPlayersChoice;
+    }
 }

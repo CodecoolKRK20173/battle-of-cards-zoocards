@@ -2,34 +2,44 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game implements Comparable {
-
-    String fileName = "animal.csv";
-    Deck deck = new Deck(fileName);
-    Table table = new Table();
-    Dealer dealer = new Dealer();
-    List<Player> players = new ArrayList<>();
+public class Game {
+    Deck deck;
+    Dealer dealer;
+    int cardComparisonResult;
+    ArrayList<Player> players = new ArrayList<Player>();
 
     Game(String fileName) throws FileNotFoundException {
 
-        // introduction
-        View.print("---Zoo Battle of Cards---");
-        View.print("");
+        deck = new Deck(fileName);
+        dealer = new Dealer(deck);
 
         // ask for number of players
         int numberOFPlayers = View.askForNumberOfPlayers();
 
         // adding players
         for (int i = 0; i < numberOFPlayers; i++){
+
             players.add(new Player(i+1));
         }
-
-        // dealing cards to players
+        // dealing cards
         dealCards();
+        
+        // game
+        while (true){
 
-        //
+            for (int i = 0; i < players.size(); i++){
+                for (int x = 0; x<30; x++){
+                    System.out.println("\n");
+                }
+                round(i , players);
+                if (checkGameStatus()){
+                    break;
+                } 
+            }
+        }
+
+  
     }
-
 
     public void dealCards() {
 
@@ -38,50 +48,147 @@ public class Game implements Comparable {
         }
     }
 
-    public void round(Player player1, Player player2){
+    public ArrayList<Card> round(int currentPlayerIndex, ArrayList<Player> players){
 
-        while(checkIfPlayerLost()){
-            //+clean code to be made 
+        List<Card> cardsOnTable = new ArrayList<Card>();
 
-            View.printCard(player1.layCardOnTable());
-            int player1Decision = player1.decideWhichFeature();
+        Player playerToDecide = players.get(currentPlayerIndex);
 
-            View.printCard(player2.layCardOnTable());
+        //+clean code to be made 
+        ArrayList<Card> tempCardStack = new ArrayList<Card>();
 
-            Card player1Card = player1.layCardOnTable();
-            Card player2Card = player2.layCardOnTable();
+        View.print("");
+        View.print("--Player " + playerToDecide.getPlayerId() + "--");
+        View.print("");
+        View.printCard(playerToDecide.showTopCard());
+        View.print("");
+
+        //View.printCard(player2.showTopCard());
+        View.print("");
+
+        // calculating the winning card
+        for (Player player : players){
+            cardsOnTable.add(player.layCardOnTable());
         }
-    }
+        int player1Decision = 0;
+        while (true){
 
-    public void playersChoices(Player player1, Player player2){
+            player1Decision = View.decideWhichFeature();
 
-        View.printCard(player1.layCardOnTable());
-        int player1Decision = player1.decideWhichFeature();
+            if(player1Decision == 1){
+                //cardComparisonResult = dealer.compare(player1Card.getSpeed(), player2Card.getSpeed());
 
-        View.printCard(player2.layCardOnTable());
+                Card temp;
+                int change = 1;
+                while(change > 0){
+                    change = 0;
+                    for(int i=0; i<cardsOnTable.size()-1; i++){
+                        if(dealer.compare(cardsOnTable.get(i).getSpeed(), cardsOnTable.get(i+1).getSpeed()) > 0){
+                        temp = cardsOnTable.get(i+1);
+                        cardsOnTable.set(i+1, cardsOnTable.get(i));
+                        cardsOnTable.set(i, temp);
+                        change++;
+                        }
+                    }
+                }
+                break;
+            }
 
-        Card player1Card = player1.layCardOnTable();
-        Card player2Card = player2.layCardOnTable();
-    }
+            else if(player1Decision == 2){
+                // cardComparisonResult = dealer.compare(player1Card.getHeight(), player2Card.getHeight());
+                Card temp;
+                int change = 1;
+                while(change > 0){
+                    change = 0;
+                    for(int i=0; i<cardsOnTable.size()-1; i++){
+                        if(dealer.compare(cardsOnTable.get(i).getHeight(), cardsOnTable.get(i+1).getHeight()) > 0){
+                        temp = cardsOnTable.get(i+1);
+                        cardsOnTable.set(i+1, cardsOnTable.get(i));
+                        cardsOnTable.set(i, temp);
+                        change++;
+                        }
+                    }
+                }
+                break;
+            }
 
-    public boolean checkIfPlayerLost() {
+            else if(player1Decision == 3){
+                // cardComparisonResult = dealer.compare(player1Card.getStrenght(), player2Card.getStrenght());
+                Card temp;
+                int change = 1;
+                while(change > 0){
+                    change = 0;
+                    for(int i=0; i<cardsOnTable.size()-1; i++){
+                        if(dealer.compare(cardsOnTable.get(i).getStrenght(), cardsOnTable.get(i+1).getStrenght()) > 0){
+                        temp = cardsOnTable.get(i+1);
+                        cardsOnTable.set(i+1, cardsOnTable.get(i));
+                        cardsOnTable.set(i, temp);
+                        change++;
+                        }
+                    }
+                }
+                break;
+            }
 
-        for (Player player : players) {
-            if (player.isLose()) {
-                return false;
-            } else {
+            else if(player1Decision == 4){
+                // cardComparisonResult = dealer.compare(player1Card.getLifeExpectancy(), player2Card.getLifeExpectancy());
+                Card temp;
+                int change = 1;
+                while(change > 0){
+                    change = 0;
+                    for(int i=0; i<cardsOnTable.size()-1; i++){
+                        if(dealer.compare(cardsOnTable.get(i).getLifeExpectancy(), cardsOnTable.get(i+1).getLifeExpectancy()) > 0){
+                        temp = cardsOnTable.get(i+1);
+                        cardsOnTable.set(i+1, cardsOnTable.get(i));
+                        cardsOnTable.set(i, temp);
+                        change++;
+                        }
+                    }
+                }
+                break;
+            }
+            else{
+                View.print("No such choice!");
+            }
+        }
+
+        // checking if there are exequo winner cards
+
+
+        // checking whose card is first in sorted cardsOnTable arraylist
+        int winnerId = cardsOnTable.get(0).getWooseCardIsThisNow();
+
+        // finding the winner
+        for (Player player : players){
+            if (player.getPlayerId() == winnerId){
+                View.print("Player " + player.getPlayerId() + " won the round!");
+                // adding cards to winner
+                for (Card card : cardsOnTable){
+                    player.addCard(card);
+                    cardsOnTable.remove(card);
+                }
+            }
+            else {
                 ;
             }
-        return true;
         }
+
+        return tempCardStack;
     }
 
-	@Override
-	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-    public int 
-
+    public boolean checkGameStatus() {
+        for (Player player : players) {
+            if (player.isLose()){
+                View.print("Congratulations! Player " + player.getPlayerId() + " has lost");
+                players.remove(player);
+                if (players.size() == 1){
+                    return true;
+                }
+            }
+            else {
+                ;
+            }
+        }
+        return false;
+    }
 }

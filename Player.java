@@ -6,6 +6,7 @@ public class Player {
     int id;
 
     Player(int id){
+        
         this.id = id;
     }
 
@@ -19,22 +20,22 @@ public class Player {
         return this.hand.giveCard();
     }
 
-    int decideWhichFeature(){
-
-        Scanner scan =  new Scanner(System.in);
-
-        View.print("Please select which feature to fight with...");
-        View.print("1. Speed \n 2. Height \n 3. Strenght \n 4. Life Expectancy");
-        
-        int choice = scan.nextInt();
-        scan.close();
-
-        return choice;
-    }
-
     boolean isLose(){
 
         return hand.isLose();
+    }
+
+    int getPlayerId(){
+        return id;
+    }
+
+    int getCardsCount(){
+        return hand.getCardsCount();
+    }
+
+    Card showTopCard(){
+
+        return this.hand.showTopCard();
     }
         
 }

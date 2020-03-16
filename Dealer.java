@@ -3,12 +3,13 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-public class Dealer implements Comparator<Card> {
+public class Dealer implements Comparator<Integer> {
     
+    Deck deck;
     List<Card> drawnCards = new ArrayList<Card>();
 
-    Dealer(){
-
+    Dealer(Deck deck){
+        this.deck = deck;
     }
 
     void drawCardsFromDeck(Player player, Deck deck){
@@ -41,25 +42,11 @@ public class Dealer implements Comparator<Card> {
             player.addCard(card);
         }
     }
-
-	@Override
-	public int compare(Card o1, Card o2) {
+    
+    @Override
+	public int compare(Integer o1, Integer o2) {
         // TODO Auto-generated method stub
-        
-        if(choice == 1){
-            return Integer.compare(o1.getSpeed(), o2.getSpeed());
-        }
-        else if(choice == 2){
-            return Integer.compare(o1.getHeight(), o2.getHeight());
-        }
-        else if(choice == 3){
-            return Integer.compare(o1.getStrenght(), o2.getStrenght());
-        }
-        else if(choice == 4){
-            return Integer.compare(o1.getLifeExpectancy(), o2.getLifeExpectancy());
-        }
-		
-	}
-
+        return Integer.compare(o1, o2);
+    }
 }
 

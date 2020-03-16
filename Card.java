@@ -1,12 +1,11 @@
-import java.util.Comparator;
-
-public class Card implements Comparator {
+public class Card{
 
     int speed;
     int height;
     int strenght;
     int lifeExpectancy;
     String name;
+    int whooseCardIsThisNow;
 
 
     public void setSpeed(int speed)
@@ -58,11 +57,14 @@ public class Card implements Comparator {
         return name;
     }
 
-    @Override
-    public int compare(Object o1, Object o2) {
-        // TODO Auto-generated method stub
-        return 0;
+    int getWooseCardIsThisNow(){
+
+        return this.whooseCardIsThisNow;
     }
 
+    void setWooseCardIsThisNow(int PlayerID){
+
+        this.whooseCardIsThisNow = PlayerID;
+    }
 
 }

@@ -26,7 +26,13 @@ public class Hand {
 
         return hand.isEmpty();
     }
-        
 
-
+    int getCardsCount(){
+        return hand.size();
+    }
+    
+    Card showTopCard(){
+        return hand.get(hand.size()-1);
+    }
+    
 }
