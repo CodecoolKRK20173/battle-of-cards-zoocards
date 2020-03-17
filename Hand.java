@@ -8,8 +8,8 @@ public class Hand {
     Hand(){
     }
 
-    void addCard(Card card){
-
+    void addCard(Card card, int playerId){
+        card.setWooseCardIsThisNow(playerId);
         this.hand.add(0, card);
     }
 
@@ -26,7 +26,13 @@ public class Hand {
 
         return hand.isEmpty();
     }
-        
 
-
+    int getCardsCount(){
+        return hand.size();
+    }
+    
+    Card showTopCard(){
+        return hand.get(hand.size() - 1);
+    }
+    
 }

@@ -1,87 +1,180 @@
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Game implements Comparable {
+public class Game {
 
-    String fileName = "animal.csv";
-    Deck deck = new Deck(fileName);
-    Table table = new Table();
-    Dealer dealer = new Dealer();
-    List<Player> players = new ArrayList<>();
+    Deck deck;
+    Dealer dealer;
+    ArrayList<Player> players = new ArrayList<Player>();
+    int cardComparisonResult;
+    ArrayList<Card> tempCardStack = new ArrayList<>();
 
     Game(String fileName) throws FileNotFoundException {
 
-        // introduction
-        View.print("---Zoo Battle of Cards---");
-        View.print("");
+        deck = new Deck(fileName);
+        dealer = new Dealer(deck);
 
         // ask for number of players
         int numberOFPlayers = View.askForNumberOfPlayers();
 
-        // adding players
+        // adding players to 'players' ArrayList
         for (int i = 0; i < numberOFPlayers; i++){
             players.add(new Player(i+1));
         }
 
         // dealing cards to players
-        dealCards();
+        dealer.dealCardsToPlayers(players, deck);
 
-        //
+        // Game
+        while (!(players.size() == 1)){
+
+            for (int i = 0; i < players.size(); i++){
+
+                // printowanie ilości kart kazdego z graczy dla testów
+                if (checkGameStatus()){
+                    try{
+                        // display no of cards for each player
+                        for (Player player : players){
+                            View.print("Player " + player.getPlayerId() + " no of cards: " + player.getCardsCount());
+                        }
+
+                        round(players.get(i), players);
+                    }
+                    catch(IndexOutOfBoundsException e){
+                        continue;
+                    }
+                }
+                else{
+                    break;
+                }
+            }
+        }
     }
 
 
-    public void dealCards() {
+    public void round(Player playerWhoseTurn, ArrayList<Player> players){
 
+        // displaying template with name of the current player
+        View.print("");
+        View.print("--Player " + playerWhoseTurn.getPlayerId() + "--");
+        View.print("");
+
+        // displaying decisive player's card
+        View.printCard(playerWhoseTurn.showTopCard());
+        View.print("\n\n");
+        
+        // creating list of cards currently in game (table)
+        ArrayList<Card> cardsOnTable = new ArrayList<Card>();
+
+        // All players lay their cards on table
         for (Player player : players){
-            dealer.drawCardsFromDeck(player, deck);
+            cardsOnTable.add(player.layCardOnTable());
         }
-    }
 
-    public void round(Player player1, Player player2){
+        // Actual round
 
-        while(checkIfPlayerLost()){
-            //+clean code to be made 
+            // Asking player for decision which feature to fight with
+        int playerDecision;
 
-            View.printCard(player1.layCardOnTable());
-            int player1Decision = player1.decideWhichFeature();
+        while (true){
 
-            View.printCard(player2.layCardOnTable());
+            // decisive player decides which feature to fight with
+            playerDecision = View.decideWhichFeature();
 
-            Card player1Card = player1.layCardOnTable();
-            Card player2Card = player2.layCardOnTable();
+            // possible decisions
+            int[] possibleChoices = {1, 2, 3, 4};
+
+            // check if player choose existing option
+            if (!checkIfValueInArray(possibleChoices, playerDecision)){
+                View.print("No such choice! Try again!");
+            }
+            else{
+                break;
+            }
         }
+
+        // Dealer checks who won (there might be exequo winners!)
+        ArrayList<Integer> winnersIds = dealer.getWinner(cardsOnTable, playerDecision);
+
+        // if there are no exequo winners, so there is only one winner:
+        if (winnersIds.size() == 1){
+
+            // display message who won
+            View.print("\nPlayer " + winnersIds.get(0) + " won the round!");
+
+            //add cards from cardsOnTable to winner's hand
+            for (Card card : cardsOnTable){
+                for (Player player : players){
+                    if (player.getPlayerId() == winnersIds.get(0)){
+                        player.addCard(card);
+                    }
+                }
+            }
+            // clear cardsOnTable
+            cardsOnTable.clear();
+
+            //add cards from tempCardStack (if ther are any) to winner's hand
+            for (Card card : tempCardStack){
+                for (Player player : players){
+                    if (player.getPlayerId() == winnersIds.get(0)){
+                        player.addCard(card);
+                    }
+                }
+            }
+            // clear tempCardStack
+            tempCardStack.clear();
+
+        }
+
+        // when there are exequo winners:
+        else if (winnersIds.size() > 1){
+
+            // Nobody gets the cards, instead cards go to temporary stack untill someone wins them
+            // in the next round
+            for (Card card : cardsOnTable){
+                tempCardStack.add(card);
+            }
+            // display who won (for example "Players 1, 2, 3 exequo won the round")
+            View.printExequoWinners(winnersIds);
+        }   
     }
 
-    public void playersChoices(Player player1, Player player2){
-
-        View.printCard(player1.layCardOnTable());
-        int player1Decision = player1.decideWhichFeature();
-
-        View.printCard(player2.layCardOnTable());
-
-        Card player1Card = player1.layCardOnTable();
-        Card player2Card = player2.layCardOnTable();
-    }
-
-    public boolean checkIfPlayerLost() {
-
+    public boolean checkGameStatus() {
+        int i = 0;
+        ArrayList<Integer> indexesOfPlayersToBeRemoved = new ArrayList<>();
         for (Player player : players) {
-            if (player.isLose()) {
-                return false;
-            } else {
+            if (player.isLose()){
+                View.print("\nOops! Player " + player.getPlayerId() + " has lost\n");
+                indexesOfPlayersToBeRemoved.add(i);
+            }
+            else {
                 ;
             }
-        return true;
+            i++;
+        }
+        // takie coś zeby wywalić graczy którzy zostali bez kart, a podwójna pętla bo mozna robic tylko jedno remove na petle
+        for (int j = 0; j<indexesOfPlayersToBeRemoved.size(); j++){
+            for (int PlayerIndex : indexesOfPlayersToBeRemoved){
+                players.remove(PlayerIndex);
+                break;
+            }
+        }
+
+        if (players.size() == 1){
+            View.print("Congratulations Player " + players.get(0).getPlayerId() + "! You have won the game!\n");
+            return false;
+        }
+        else {
+            return true; 
         }
     }
 
-	@Override
-	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-    public int 
-
+    boolean checkIfValueInArray(int[] array, int value){
+        for (int i : array) {
+            if (value == i) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

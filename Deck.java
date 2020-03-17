@@ -39,14 +39,10 @@ public class Deck{
         }
 
         sc.close(); // closes the scanner
-
     }
-
+    
     public int getNumOfCards(){
         return deck.size();
     }
-
-    
-
 }
 
