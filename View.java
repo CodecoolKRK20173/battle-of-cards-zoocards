@@ -29,26 +29,35 @@ class View {
     }
 
  
-    static int decideWhichFeature(){
+    static int decideWhichFeature() {
 
         View.print("Please select which feature to fight with...");
         View.print("1. Speed \n2. Height \n3. Strenght \n4. Life Expectancy");
 
-        if (scan.hasNext()){
-            
-            featureChoice = scan.nextInt();
-            scan.nextLine();
+        while (!scan.hasNextInt()) {
+            String input = scan.next();
+            System.out.printf("\"%s\" is not a valid number.\n1-4 allowed.\n", input);
         }
-        return featureChoice;
+        return featureChoice = scan.nextInt();
+
+  
     }
 
-    static int askForNumberOfPlayers(){
-        
-        View.print("Enter number of players (2-5): ");   
-             
-        int noOfPlayersChoice = scan.nextInt();
+    static int askForNumberOfPlayers() {
 
-        return noOfPlayersChoice;
+        System.out.print("Enter number of players (2-5): ");
+        while (!scan.hasNextInt()) {
+            String input = scan.next();
+            System.out.printf("\"%s\" is not a valid number.\n2-5 allowed.\n", input);
+        }
+        noOfPlayersChoice = scan.nextInt();
+
+        if (noOfPlayersChoice > 1 && noOfPlayersChoice < 6) {
+            return noOfPlayersChoice;
+        } else {
+            System.out.println("\nTry again.\n2-5 allowed.\n");
+            return askForNumberOfPlayers();
+        }
     }
 
 
