@@ -19,6 +19,7 @@ public class Game {
 
         // adding players to 'players' ArrayList
         for (int i = 0; i < numberOFPlayers; i++){
+
             players.add(new Player(i+1));
         }
 
