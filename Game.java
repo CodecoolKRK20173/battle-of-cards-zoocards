@@ -8,7 +8,7 @@ public class Game {
     private ArrayList<Card> tempCardStack = new ArrayList<>();
 
     Game(Deck deck) {
-        this.dealer = new Dealer(deck, 0);
+        this.dealer = new Dealer(deck, 1);
     }
 
     public void startGame() {
@@ -18,13 +18,12 @@ public class Game {
         // adding dealer...
         players.add(dealer);
         //...and players to 'players' ArrayList
-        for (int i = 1; i < numberOFPlayers - 1; i++) {
+        for (int i = 1; i < numberOFPlayers; i++) {
             players.add(new RegularPlayer(i + 1));
         }
 
         // dealing cards to players
         dealer.dealCardsToPlayers(players);
-
         // Game
         while (!(players.size() == 1)) {
 
