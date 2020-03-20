@@ -7,27 +7,27 @@ public class RegularPlayer extends Player{
         this.id = id;
     }
 
-    void addCard(Card card) {
+    public void addCard(Card card) {
         hand.addCard(card, id);
     }
 
-    Card layCardOnTable() {
+    public Card layCardOnTable() {
         return hand.giveCard();
     }
 
-    boolean isLose() {
+    public boolean isLose() {
         return hand.isLose();
     }
 
-    int getPlayerId() {
+    public int getPlayerId() {
         return id;
     }
 
-    int getCardsCount() {
+    public int getCardsCount() {
         return hand.getCardsCount();
     }
 
-    Card showTopCard() {
+    public Card showTopCard() {
         return hand.showTopCard();
     }
 
