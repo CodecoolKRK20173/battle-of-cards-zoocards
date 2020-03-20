@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Dealer extends Player{
+public class Dealer extends Player {
     private Hand hand = new Hand();
     private int id;
     private int comparationResult;
     private Deck deck;
     private CardComparator comparator;
-
 
     Dealer(Deck deck, int id) {
         this.deck = deck;
@@ -31,7 +30,8 @@ public class Dealer extends Player{
     }
 
     public ArrayList<Integer> getWinner(ArrayList<Card> cardsOnTable, int playerDecision) {
-        // creating ArrayList of IDs of all the winners (because there might be exequo winners!)
+        // creating ArrayList of IDs of all the winners (because there might be exequo
+        // winners!)
         ArrayList<Integer> winnersIds = new ArrayList<Integer>();
 
         // bubble-sorting cardsOnTable
@@ -42,21 +42,23 @@ public class Dealer extends Player{
             change = 0;
             for (int i = 0; i < cardsOnTable.size() - 1; i++) {
 
-                // switch for different features of cards to sort with (which feature to sort with)
-                if (playerDecision == 1) {
-                    comparationResult = new CardComparator("SPEED")
-                            .compare(cardsOnTable.get(i), cardsOnTable.get(i + 1));
-                } else if (playerDecision == 2) {
-                    comparationResult = new CardComparator("HEIGHT")
-                            .compare(cardsOnTable.get(i), cardsOnTable.get(i + 1));
-                } else if (playerDecision == 3) {
-                    comparationResult = new CardComparator("STRENGTH")
-                            .compare(cardsOnTable.get(i), cardsOnTable.get(i + 1));
-                } else if (playerDecision == 4) {
-                    comparationResult = new CardComparator("LIFE EXPECTANCY")
-                            .compare(cardsOnTable.get(i), cardsOnTable.get(i + 1));
-                }
+                // switch for different features of cards to sort with (which feature to sort
+                // with)
+                switch (playerDecision) {
+                    case 1:
+                        comparationResult = new CardComparator("SPEED").compare(cardsOnTable.get(i),
+                                cardsOnTable.get(i + 1));
+                    case 2:
+                        comparationResult = new CardComparator("HEIGHT").compare(cardsOnTable.get(i),
+                                cardsOnTable.get(i + 1));
+                    case 3:
+                        comparationResult = new CardComparator("STRENGTH").compare(cardsOnTable.get(i),
+                                cardsOnTable.get(i + 1));
+                    case 4:
+                        comparationResult = new CardComparator("LIFE EXPECTANCY").compare(cardsOnTable.get(i),
+                                cardsOnTable.get(i + 1));
 
+                }
                 // continuation of bubble-sorting
                 if (comparationResult < 0) {
                     temp = cardsOnTable.get(i + 1);
@@ -71,46 +73,49 @@ public class Dealer extends Player{
         winnersIds.add(cardsOnTable.get(0).getWooseCardIsThisNow());
 
         // checking if there are exequo winners
-        // first checking if the two top cards (in the sorted cardsOnTable) have equal values in any of the features
+        // first checking if the two top cards (in the sorted cardsOnTable) have equal
+        // values in any of the features
         // firstly doing it for the case when speed was the feature to fight with...
-        if (playerDecision == 1) {
-            if (cardsOnTable.get(0).getSpeed() == cardsOnTable.get(1).getSpeed()) {
-                // then iterating through sorted cardsOnTable list and checking (from first to last card) if they have the
-                // same value as the first. If yes, than adding ID of the player to who this card belongs to the list
-                // of exequoWinnersIds list
-                for (int j = 1; j < cardsOnTable.size() - 1; j++) {
-                    if (cardsOnTable.get(0).getSpeed() == cardsOnTable.get(j).getSpeed()) {
-                        winnersIds.add(cardsOnTable.get(j).getWooseCardIsThisNow());
+        switch (playerDecision) {
+            case 1:
+                if (cardsOnTable.get(0).getSpeed() == cardsOnTable.get(1).getSpeed()) {
+                    // then iterating through sorted cardsOnTable list and checking (from first to
+                    // last card) if they have the
+                    // same value as the first. If yes, than adding ID of the player to who this
+                    // card belongs to the list
+                    // of exequoWinnersIds list
+                    for (int j = 1; j < cardsOnTable.size() - 1; j++) {
+                        if (cardsOnTable.get(0).getSpeed() == cardsOnTable.get(j).getSpeed()) {
+                            winnersIds.add(cardsOnTable.get(j).getWooseCardIsThisNow());
+                        }
                     }
                 }
-            }
-        }
 
-        // Then exactly the same but for the remaining other features...
-        else if (playerDecision == 2) {
-            if (cardsOnTable.get(0).getHeight() == cardsOnTable.get(1).getHeight()) {
-                for (int j = 1; j < cardsOnTable.size() - 1; j++) {
-                    if (cardsOnTable.get(0).getHeight() == cardsOnTable.get(j).getHeight()) {
-                        winnersIds.add(cardsOnTable.get(j).getWooseCardIsThisNow());
+                // Then exactly the same but for the remaining other features...
+            case 2:
+                if (cardsOnTable.get(0).getHeight() == cardsOnTable.get(1).getHeight()) {
+                    for (int j = 1; j < cardsOnTable.size() - 1; j++) {
+                        if (cardsOnTable.get(0).getHeight() == cardsOnTable.get(j).getHeight()) {
+                            winnersIds.add(cardsOnTable.get(j).getWooseCardIsThisNow());
+                        }
                     }
                 }
-            }
-        } else if (playerDecision == 3) {
-            if (cardsOnTable.get(0).getStrenght() == cardsOnTable.get(1).getStrenght()) {
-                for (int j = 1; j < cardsOnTable.size() - 1; j++) {
-                    if (cardsOnTable.get(0).getStrenght() == cardsOnTable.get(j).getStrenght()) {
-                        winnersIds.add(cardsOnTable.get(j).getWooseCardIsThisNow());
+            case 3:
+                if (cardsOnTable.get(0).getStrenght() == cardsOnTable.get(1).getStrenght()) {
+                    for (int j = 1; j < cardsOnTable.size() - 1; j++) {
+                        if (cardsOnTable.get(0).getStrenght() == cardsOnTable.get(j).getStrenght()) {
+                            winnersIds.add(cardsOnTable.get(j).getWooseCardIsThisNow());
+                        }
                     }
                 }
-            }
-        } else if (playerDecision == 4) {
-            if (cardsOnTable.get(0).getLifeExpectancy() == cardsOnTable.get(1).getLifeExpectancy()) {
-                for (int j = 1; j < cardsOnTable.size() - 1; j++) {
-                    if (cardsOnTable.get(0).getLifeExpectancy() == cardsOnTable.get(j).getLifeExpectancy()) {
-                        winnersIds.add(cardsOnTable.get(j).getWooseCardIsThisNow());
+            case 4:
+                if (cardsOnTable.get(0).getLifeExpectancy() == cardsOnTable.get(1).getLifeExpectancy()) {
+                    for (int j = 1; j < cardsOnTable.size() - 1; j++) {
+                        if (cardsOnTable.get(0).getLifeExpectancy() == cardsOnTable.get(j).getLifeExpectancy()) {
+                            winnersIds.add(cardsOnTable.get(j).getWooseCardIsThisNow());
+                        }
                     }
                 }
-            }
         }
         return winnersIds;
     }
@@ -139,4 +144,3 @@ public class Dealer extends Player{
         return hand.showTopCard();
     }
 }
-

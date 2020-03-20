@@ -8,7 +8,8 @@ public class Card implements Comparable<Card> {
     Integer lifeExpectancy;
     String name;
     int whooseCardIsThisNow;
-    int featurToCompare;
+    int featureToCompare;
+    
 
     public void setSpeed(int speed) {
         this.speed = speed;
@@ -50,27 +51,32 @@ public class Card implements Comparable<Card> {
         return name;
     }
 
-    int getWooseCardIsThisNow() {
+    public int getWooseCardIsThisNow() {
 
         return this.whooseCardIsThisNow;
     }
 
-    void setWooseCardIsThisNow(int PlayerID) {
+    public void setWooseCardIsThisNow(int PlayerID) {
 
         this.whooseCardIsThisNow = PlayerID;
     }
 
     @Override
     public int compareTo(Card otherCard) {
-        if (featurToCompare == 1) {
-            return this.speed.compareTo(otherCard.getSpeed());
-        } else if (featurToCompare == 2) {
-            return this.height.compareTo(otherCard.getHeight());
-        } else if (featurToCompare == 3) {
-            return this.strenght.compareTo(otherCard.getStrenght());
-        } else {
-            return this.lifeExpectancy.compareTo(otherCard.getLifeExpectancy());
+        
+
+        switch (featureToCompare) {
+            case 1:
+            featureToCompare = this.speed.compareTo(otherCard.getSpeed());
+            case 2:
+            featureToCompare = this.height.compareTo(otherCard.getHeight());
+            case 3:
+            featureToCompare = this.strenght.compareTo(otherCard.getStrenght());
+            case 4:
+            featureToCompare = this.lifeExpectancy.compareTo(otherCard.getLifeExpectancy());
+
         }
+        return featureToCompare;
     }
 
     public String toString() {
