@@ -6,14 +6,16 @@ public class Game {
     private ArrayList<Player> players = new ArrayList<Player>();
     private int cardComparisonResult;
     private ArrayList<Card> tempCardStack = new ArrayList<>();
+    View view = new View();
 
     Game(Deck deck) {
         this.dealer = new Dealer(deck, 1);
+        
     }
 
     public void startGame() {
         // ask for number of players
-        int numberOFPlayers = View.askForNumberOfPlayers();
+        int numberOFPlayers = view.askForNumberOfPlayers();
 
         // adding dealer...
         players.add(dealer);
@@ -34,7 +36,7 @@ public class Game {
                     try {
                         // display no of cards for each player
                         for (Player player : players) {
-                            View.print("Player " + player.getPlayerId() + " no of cards: " + player.getCardsCount());
+                            view.print("Player " + player.getPlayerId() + " no of cards: " + player.getCardsCount());
                         }
 
                         round(players.get(i), players);
@@ -52,13 +54,13 @@ public class Game {
     public void round(Player playerWhoseTurn, ArrayList<Player> players) {
 
         // displaying template with name of the current player
-        View.print("");
-        View.print("--Player " + playerWhoseTurn.getPlayerId() + "--");
-        View.print("");
+        view.print("");
+        view.print("--Player " + playerWhoseTurn.getPlayerId() + "--");
+        view.print("");
 
         // displaying decisive player's card
-        View.printCard(playerWhoseTurn.showTopCard());
-        View.print("\n\n");
+        view.printCard(playerWhoseTurn.showTopCard());
+        view.print("\n\n");
 
         // creating list of cards currently in game (table)
         ArrayList<Card> cardsOnTable = new ArrayList<Card>();
@@ -76,14 +78,14 @@ public class Game {
         while (true) {
 
             // decisive player decides which feature to fight with
-            playerDecision = View.decideWhichFeature();
+            playerDecision = view.decideWhichFeature();
 
             // possible decisions
             int[] possibleChoices = {1, 2, 3, 4};
 
             // check if player choose existing option
             if (!checkIfValueInArray(possibleChoices, playerDecision)) {
-                View.print("No such choice! Try again!");
+                view.print("No such choice! Try again!");
             } else {
                 break;
             }
@@ -96,7 +98,7 @@ public class Game {
         if (winnersIds.size() == 1) {
 
             // display message who won
-            View.print("\nPlayer " + winnersIds.get(0) + " won the round!");
+            view.print("\nPlayer " + winnersIds.get(0) + " won the round!");
 
             //add cards from cardsOnTable to winner's hand
             for (Card card : cardsOnTable) {
@@ -130,7 +132,7 @@ public class Game {
                 tempCardStack.add(card);
             }
             // display who won (for example "Players 1, 2, 3 exequo won the round")
-            View.printExequoWinners(winnersIds);
+            view.printExequoWinners(winnersIds);
         }
     }
 
@@ -139,7 +141,7 @@ public class Game {
         ArrayList<Integer> indexesOfPlayersToBeRemoved = new ArrayList<>();
         for (Player player : players) {
             if (player.isLose()) {
-                View.print("\nOops! Player " + player.getPlayerId() + " has lost\n");
+                view.print("\nOops! Player " + player.getPlayerId() + " has lost\n");
                 indexesOfPlayersToBeRemoved.add(i);
             } else {
                 ;
@@ -155,7 +157,7 @@ public class Game {
         }
 
         if (players.size() == 1) {
-            View.print("Congratulations Player " + players.get(0).getPlayerId() + "! You have won the game!\n");
+            view.print("Congratulations Player " + players.get(0).getPlayerId() + "! You have won the game!\n");
             return false;
         } else {
             return true;

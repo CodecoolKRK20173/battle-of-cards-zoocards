@@ -8,22 +8,22 @@ class View {
     static int noOfPlayersChoice;
 
     
-    public static void print(String string){
+    public void print(String string){
         System.out.println(string);
     }
 
-    public static void printNoLine(String string){
+    public void printNoLine(String string){
         System.out.print(string);
     }
 
-    public static void printNoLine(Integer i){
+    public  void printNoLine(Integer i){
         System.out.print(i);
     }
-    public static void print(int intId){
+    public void print(int intId){
         System.out.println(intId);
     }
 
-    public static void printCard(Card card){
+    public void printCard(Card card){
         String str = " "; 
 
         System.out.println("----------------------");
@@ -37,10 +37,10 @@ class View {
     }
 
  
-    static int decideWhichFeature(){
+    public int decideWhichFeature(){
 
-        View.print("Please select which feature to fight with...");
-        View.print("1. Speed \n2. Height \n3. Strenght \n4. Life Expectancy");
+        print("Please select which feature to fight with...");
+        print("1. Speed \n2. Height \n3. Strenght \n4. Life Expectancy");
 
         if (scan.hasNext()){
             
@@ -50,9 +50,9 @@ class View {
         return featureChoice;
     }
 
-    static int askForNumberOfPlayers(){
+    public int askForNumberOfPlayers(){
         
-        View.print("Enter number of players (2-5): ");   
+        print("Enter number of players (2-5): ");   
              
         int noOfPlayersChoice = scan.nextInt();
 
@@ -60,7 +60,7 @@ class View {
     }
 
 
-    static int countDigit(long n) 
+    public int countDigit(long n) 
     { 
         int count = 0; 
         while (n != 0) { 
@@ -70,22 +70,22 @@ class View {
         return count; 
     } 
 
-    static void printExequoWinners(ArrayList<Integer> winnersIds){
-        View.print("");
-        View.printNoLine("Players ");
+    public void printExequoWinners(ArrayList<Integer> winnersIds){
+        print("");
+        printNoLine("Players ");
         for (int i = 0; i < winnersIds.size(); i++){
 
             if (i == 0){
-                View.printNoLine(winnersIds.get(i));
+                printNoLine(winnersIds.get(i));
             }
             else if (i == winnersIds.size() - 1){
-                View.printNoLine(" and " + winnersIds.get(i));
+                printNoLine(" and " + winnersIds.get(i));
             }
             else{
-                View.printNoLine(", " + winnersIds.get(i));
+                printNoLine(", " + winnersIds.get(i));
             }
             
         }
-        View.printNoLine(" exequo won the round!\n");
+        printNoLine(" exequo won the round!\n");
     }
 }
