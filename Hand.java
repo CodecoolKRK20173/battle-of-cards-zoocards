@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Hand {
     
-    List<Card> hand = new ArrayList<>();
+    private  List<Card> hand = new ArrayList<>();
 
     Hand(){
     }

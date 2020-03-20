@@ -5,7 +5,7 @@ class View {
 
     static Scanner scan = new Scanner(System.in);
     static int featureChoice;
-    static int noOfPlayersChoice;
+    
 
     
     public void print(String string){

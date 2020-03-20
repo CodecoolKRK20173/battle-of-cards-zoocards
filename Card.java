@@ -1,11 +1,11 @@
 public class Card implements Comparable<Card> {
 
-    int speed;
-    int height;
-    int strenght;
-    int lifeExpectancy;
-    String name;
-    int whooseCardIsThisNow;
+    private int speed;
+    private int height;
+    private int strenght;
+    private int lifeExpectancy;
+    private String name;
+    private int whooseCardIsThisNow;
 
 
     public void setSpeed(int speed)
