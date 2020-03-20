@@ -8,12 +8,12 @@ public class Hand {
     Hand(){
     }
 
-    void addCard(Card card, int playerId){
+    public void addCard(Card card, int playerId){
         card.setWooseCardIsThisNow(playerId);
         this.hand.add(0, card);
     }
 
-    Card giveCard(){
+    public Card giveCard(){
 
         Card cardToGive = hand.get(hand.size() - 1);
 
@@ -22,16 +22,16 @@ public class Hand {
         return cardToGive;
     }
 
-    boolean isLose(){
+    public boolean isLose(){
 
         return hand.isEmpty();
     }
 
-    int getCardsCount(){
+    public int getCardsCount(){
         return hand.size();
     }
     
-    Card showTopCard(){
+    public Card showTopCard(){
         return hand.get(hand.size() - 1);
     }
     

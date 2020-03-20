@@ -162,7 +162,7 @@ public class Game {
         }
     }
 
-    boolean checkIfValueInArray(int[] array, int value) {
+    public boolean checkIfValueInArray(int[] array, int value) {
         for (int i : array) {
             if (value == i) {
                 return true;

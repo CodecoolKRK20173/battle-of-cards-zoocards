@@ -14,7 +14,7 @@ public class Dealer extends Player{
         this.id = id;
     }
 
-    void dealCardsToPlayers(ArrayList<Player> players) {
+    public void dealCardsToPlayers(ArrayList<Player> players) {
         int numberOfCardsPerPlayer = deck.getCardsSize() / players.size();
 
         for (Player player : players) {
@@ -30,7 +30,7 @@ public class Dealer extends Player{
         }
     }
 
-    ArrayList<Integer> getWinner(ArrayList<Card> cardsOnTable, int playerDecision) {
+    public ArrayList<Integer> getWinner(ArrayList<Card> cardsOnTable, int playerDecision) {
         // creating ArrayList of IDs of all the winners (because there might be exequo winners!)
         ArrayList<Integer> winnersIds = new ArrayList<Integer>();
 
@@ -112,27 +112,27 @@ public class Dealer extends Player{
         return winnersIds;
     }
 
-    void addCard(Card card) {
+    public void addCard(Card card) {
         hand.addCard(card, id);
     }
 
-    Card layCardOnTable() {
+    public Card layCardOnTable() {
         return hand.giveCard();
     }
 
-    boolean isLose() {
+    public boolean isLose() {
         return hand.isLose();
     }
 
-    int getPlayerId() {
+    public int getPlayerId() {
         return id;
     }
 
-    int getCardsCount() {
+    public int getCardsCount() {
         return hand.getCardsCount();
     }
 
-    Card showTopCard() {
+    public Card showTopCard() {
         return hand.showTopCard();
     }
 }
