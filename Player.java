@@ -1,40 +1,16 @@
 
-public class Player {
-    
-    Hand hand = new Hand();
-    int id;
+public abstract class Player{
 
-    Player(int id){
-        
-        this.id = id;
-    }
+    abstract void addCard(Card card);
 
-    void addCard(Card card){
+    abstract Card layCardOnTable();
 
-        this.hand.addCard(card, this.id);
-    }
+    abstract boolean isLose();
 
-    Card layCardOnTable(){
+    abstract int getPlayerId();
 
-        return this.hand.giveCard();
-    }
+    abstract int getCardsCount();
 
-    boolean isLose(){
+    abstract Card showTopCard();
 
-        return hand.isLose();
-    }
-
-    int getPlayerId(){
-        return id;
-    }
-
-    int getCardsCount(){
-        return hand.getCardsCount();
-    }
-
-    Card showTopCard(){
-
-        return this.hand.showTopCard();
-    }
-        
 }

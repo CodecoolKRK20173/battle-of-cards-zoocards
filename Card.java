@@ -1,4 +1,4 @@
-public class Card{
+public class Card implements Comparable<Card> {
 
     int speed;
     int height;
@@ -67,4 +67,12 @@ public class Card{
         this.whooseCardIsThisNow = PlayerID;
     }
 
+    @Override
+    public int compareTo(Card card) {
+        return 0;
+    }
+    public String toString(){
+        return "Card name: " + name + " | speed: " + speed + " | height: " + height + " | strength: " + strenght + " | lifeExpectancy: " + lifeExpectancy; 
+
+    }
 }
