@@ -10,8 +10,7 @@ public class BattleOfCards {
         view.print("");
 
         Game game = new Game(new Deck(new CardCSVDao(fileName).getCards()));
-        game.startGame();
-        
+        game.startGame();        
 
     }
 }

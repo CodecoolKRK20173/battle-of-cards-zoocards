@@ -14,9 +14,13 @@ public class CardComparator implements Comparator<Card> {
             return card1.getSpeed() - card2.getSpeed();
         } else if (feature.equals("HEIGHT")) {
             return card1.getHeight() - card2.getHeight();
-        } else {
+        } else if (feature.equals("STRENGTH")){
+            return card1.getHeight() - card2.getStrenght();
+        } else if (feature.equals("LIFE EXPECTANCY")){
+            return card1.getHeight() - card2.getLifeExpectancy();
+        } else{
             throw new IllegalArgumentException("Unrecognized feature: " + feature);
         }
-
     }
 }
+

@@ -3,10 +3,8 @@ import java.util.Scanner;
 
 class View {
 
-    static Scanner scan = new Scanner(System.in);
-    static int featureChoice;
-    static int noOfPlayersChoice;
-
+    private Scanner scan = new Scanner(System.in);
+    private int featureChoice;
     
     public void print(String string){
         System.out.println(string);

@@ -47,11 +47,14 @@ public class Dealer extends Player{
                     comparationResult = new CardComparator("SPEED")
                             .compare(cardsOnTable.get(i), cardsOnTable.get(i + 1));
                 } else if (playerDecision == 2) {
-                    comparationResult = Integer.compare(cardsOnTable.get(i).getHeight(), cardsOnTable.get(i + 1).getHeight());
+                    comparationResult = new CardComparator("HEIGHT")
+                            .compare(cardsOnTable.get(i), cardsOnTable.get(i + 1));
                 } else if (playerDecision == 3) {
-                    comparationResult = Integer.compare(cardsOnTable.get(i).getStrenght(), cardsOnTable.get(i + 1).getStrenght());
+                    comparationResult = new CardComparator("STRENGTH")
+                            .compare(cardsOnTable.get(i), cardsOnTable.get(i + 1));
                 } else if (playerDecision == 4) {
-                    comparationResult = Integer.compare(cardsOnTable.get(i).getLifeExpectancy(), cardsOnTable.get(i + 1).getLifeExpectancy());
+                    comparationResult = new CardComparator("LIFE EXPECTANCY")
+                            .compare(cardsOnTable.get(i), cardsOnTable.get(i + 1));
                 }
 
                 // continuation of bubble-sorting
