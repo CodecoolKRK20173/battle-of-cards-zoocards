@@ -56,6 +56,7 @@ public class Game {
     public void round(Player playerWhoseTurn, ArrayList<Player> players) {
 
         // displaying template with name of the current player
+
         view.print("");
         view.print("--Player " + playerWhoseTurn.getPlayerId() + "--");
         view.print("");
