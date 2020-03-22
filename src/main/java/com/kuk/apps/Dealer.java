@@ -44,23 +44,18 @@ public class Dealer extends Player {
             change = 0;
             for (int i = 0; i < cardsOnTable.size() - 1; i++) {
 
-                // switch for different features of cards to sort with (which feature to sort
-                // with)
-                switch (playerDecision) {
-                    case 1:
-                        comparationResult = new CardComparator("SPEED").compare(cardsOnTable.get(i),
-                                cardsOnTable.get(i + 1));
-                    case 2:
-                        comparationResult = new CardComparator("HEIGHT").compare(cardsOnTable.get(i),
-                                cardsOnTable.get(i + 1));
-                    case 3:
-                        comparationResult = new CardComparator("STRENGTH").compare(cardsOnTable.get(i),
-                                cardsOnTable.get(i + 1));
-                    case 4:
-                        comparationResult = new CardComparator("LIFE EXPECTANCY").compare(cardsOnTable.get(i),
-                                cardsOnTable.get(i + 1));
-
+                // switch for different features of cards to sort with (which feature to sort with)
+                if (playerDecision == 1) {
+                    comparationResult = new CardComparator("SPEED")
+                            .compare(cardsOnTable.get(i), cardsOnTable.get(i + 1));
+                } else if (playerDecision == 2) {
+                    comparationResult = Integer.compare(cardsOnTable.get(i).getHeight(), cardsOnTable.get(i + 1).getHeight());
+                } else if (playerDecision == 3) {
+                    comparationResult = Integer.compare(cardsOnTable.get(i).getStrenght(), cardsOnTable.get(i + 1).getStrenght());
+                } else if (playerDecision == 4) {
+                    comparationResult = Integer.compare(cardsOnTable.get(i).getLifeExpectancy(), cardsOnTable.get(i + 1).getLifeExpectancy());
                 }
+
                 // continuation of bubble-sorting
                 if (comparationResult < 0) {
                     temp = cardsOnTable.get(i + 1);
