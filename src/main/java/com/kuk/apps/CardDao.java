@@ -1,3 +1,7 @@
+package com.kuk.apps;
+
+import com.kuk.apps.Card;
+
 import java.io.FileNotFoundException;
 import java.util.List;
 

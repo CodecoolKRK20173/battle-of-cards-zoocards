@@ -1,3 +1,5 @@
+package com.kuk.apps;
+
 import java.util.ArrayList;
 import java.util.Random;
 

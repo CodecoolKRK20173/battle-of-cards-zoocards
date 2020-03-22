@@ -1,3 +1,5 @@
+package com.kuk.apps;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,8 +33,7 @@ class View {
         System.out.println("|Speed: " + card.getSpeed() + str.repeat(14 - countDigit(card.getSpeed())) + "|");
         System.out.println("|Height: " + card.getHeight() + str.repeat(13 - countDigit(card.getHeight())) + "|");
         System.out.println("|Strenght: " + card.getStrenght() + str.repeat(11 - countDigit(card.getStrenght())) + "|");
-        System.out.println("|Life Expectancy: " + card.getLifeExpectancy()
-                + str.repeat(4 - countDigit(card.getLifeExpectancy())) + "|");
+        System.out.println("|Life Expectancy: " + card.getLifeExpectancy() + str.repeat(4 - countDigit(card.getLifeExpectancy())) + "|");
         System.out.println("----------------------");
     }
 

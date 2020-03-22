@@ -1,6 +1,8 @@
+package com.kuk.apps;
+
 import java.util.Iterator;
 
-public class Card implements Comparable<Card> {
+class Card implements Comparable<Card> {
 
     Integer speed;
     Integer height;

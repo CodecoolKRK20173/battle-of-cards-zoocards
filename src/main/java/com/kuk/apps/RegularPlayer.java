@@ -1,3 +1,4 @@
+package com.kuk.apps;
 
 public class RegularPlayer extends Player{
     private Hand hand = new Hand();

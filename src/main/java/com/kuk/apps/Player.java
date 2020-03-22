@@ -1,3 +1,4 @@
+package com.kuk.apps;
 
 public abstract class Player{
 
